@@ -1,0 +1,28 @@
+// src/context/TodoContext.js
+import React, { createContext, useState } from 'react';
+
+const TodoContext = createContext();
+
+const TodoProvider = ({ children }) => {
+    const [todos, setTodos] = useState([]);
+
+    const addTodo = (task) => {
+        setTodos([...todos, { id: Date.now(), task, completed: false }]);
+    };
+
+    const deleteTodo = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
+
+    const updateTodo = (id, updatedTask) => {
+        setTodos(todos.map(todo => (todo.id === id ? { ...todo, task: updatedTask } : todo)));
+    };
+
+    return (
+        <TodoContext.Provider value={{ todos, addTodo, deleteTodo, updateTodo }}>
+            {children}
+        </TodoContext.Provider>
+    );
+};
+
+export { TodoProvider, TodoContext };

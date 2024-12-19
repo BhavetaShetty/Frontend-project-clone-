@@ -1,0 +1,37 @@
+// src/components/TodoItem.js
+import React, { useContext, useState } from 'react';
+import { TodoContext } from '../context/TodoContext';
+
+const TodoItem = ({ todo }) => {
+    const { deleteTodo, updateTodo } = useContext(TodoContext);
+    const [isEditing, setIsEditing] = useState(false);
+    const [newTask, setNewTask] = useState(todo.task);
+
+    const handleUpdate = () => {
+        updateTodo(todo.id, newTask);
+        setIsEditing(false);
+    };
+
+    return (
+        <li>
+            {isEditing ? (
+                <>
+                    <input
+                        type="text"
+                        value={newTask}
+                        onChange={(e) => setNewTask(e.target.value)}
+                    />
+                    <button onClick={handleUpdate}>Update</button>
+                </>
+            ) : (
+                <>
+                    <span>{todo.task}</span>
+                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                    <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                </>
+            )}
+        </li>
+    );
+};
+
+export default TodoItem;

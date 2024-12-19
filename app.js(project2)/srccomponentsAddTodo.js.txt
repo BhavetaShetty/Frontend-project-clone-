@@ -1,0 +1,30 @@
+// src/components/AddTodo.js
+import React, { useContext, useState } from 'react';
+import { TodoContext } from '../context/TodoContext';
+
+const AddTodo = () => {
+    const { addTodo } = useContext(TodoContext);
+    const [task, setTask] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (task) {
+            addTodo(task);
+            setTask('');
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                value={task}
+                onChange={(e) => setTask(e.target.value)}
+                placeholder="Add a new task"
+            />
+            <button type="submit">Add</button>
+        </form>
+    );
+};
+
+export default AddTodo;
