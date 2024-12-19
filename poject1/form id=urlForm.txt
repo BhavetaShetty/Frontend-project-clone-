@@ -1,0 +1,5 @@
+<form id="urlForm">
+  <input type="text" id="articleUrl" placeholder="Enter article URL" required>
+  <button type="submit">Summarize</button>
+</form>
+<div id="summaryResult"></div>
